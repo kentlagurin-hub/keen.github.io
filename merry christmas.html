@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Letter</title>
+<style>
+    body {
+        background: linear-gradient(to bottom right, #d291bc, #f6a6b2);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        overflow: hidden;
+        position: relative;
+    }
+    .letter-container {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 35px;
+        border-radius: 20px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        max-width: 650px;
+        max-height: 80vh;
+        overflow-y: auto;
+        text-align: left;
+        position: relative;
+        z-index: 3;
+    }
+    h1 {
+        color: #d6336c;
+        font-size: 2.2em;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+    p {
+        font-size: 1.05em;
+        line-height: 1.6;
+        color: #333;
+        white-space: pre-line;
+    }
+    .signature {
+        margin-top: 25px;
+        font-style: italic;
+        color: #555;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+        text-align: center;
+    }
+    button {
+        padding: 12px 25px;
+        font-size: 1em;
+        border: none;
+        border-radius: 8px;
+        background-color: #d6336c;
+        color: white;
+        cursor: pointer;
+        display: block;
+        margin: 20px auto 0;
+        z-index: 4;
+        position: relative;
+    }
+    button:hover {
+        background-color: #b52a57;
+    }
+    .floating-heart, .floating-flower, .floating-puppy, .floating-kuromi {
+        position: absolute;
+        pointer-events: none;
+        animation: floatUp 7s linear infinite;
+    }
+    @keyframes floatUp {
+        from { transform: translateY(0) rotate(0deg); opacity: 1; }
+        to { transform: translateY(-700px) rotate(360deg); opacity: 0; }
+    }
+</style>
+</head>
+<body>
+
+<div class="letter-container" id="letterContainer">
+    <h1>Merry Christmas 🎄</h1>
+    <p id="letter"></p>
+
+    <p class="signature" id="signature">— Ken ❤️</p>
+
+    <button id="startBtn">Read My Letter</button>
+</div>
+
+<!-- YouTube music iframe -->
+<iframe id="ytPlayer" width="1" height="1"
+    src="https://www.youtube.com/embed/m_7gzTRMOZ8?controls=0&loop=1&playlist=m_7gzTRMOZ8"
+    allow="autoplay"
+    style="border:0;">
+</iframe>
+
+<script>
+const message = `Merryy Christmas cheddiii!! I've been wanting to say this for a while pero for sure alam mo naman but then mas maganda kasi pag sinabi noh HAHHAH……before that….
+
+Nagsimula talaga to yung nagchat tayo sa Insta, I did not expect that mag reply ka sa akin that time. From hi to know little about you. Nakilala ko sila leo and yung mga puppies na naibigay sa iba, to know na naglalaro ka ng mga online games and chika sa F1. Pero nag stop tayo chat pero happy parin me kasi nagkachat tayo.
+
+Gusto ko pa talaga mag chat nun sayo pero baka mainis ka pa and shy type talaga akooo, kung alam mo lang gano nanginig kamay ko ga chat sayo nun HAHAHAHHAHA. And sa totoo lang, buti rin nag-stop muna tayo mag-chat noon. I wasn’t at my best that time—and you deserve someone who shows up better.
+
+Sa mga time na di tayo nag chat, aside sa ginaisip ko na sana nag chat tayo at this moment, gina improve ko nalang din self ko baka magka konek pa tayo next time hehehe.
+
+Did not expect na nagkonek tayo ulit sa TikTok. Diko namalayan at first sino nag comment ng “ken?”. Nagulat lang ako kasi bat name ko yung nasa comment eh wala naman akong name sa profile ko T_T. And then ikaw pala yun and grabe happy ko that time, gusto ko pa magpasikat sa PUBG char HAHAHAHAHA.
+
+Then nagka ayaan maglaro hanggang sa nagausap na pa onti onti. Gi-learn ko talaga ang F1 para may topic ako sayo huhuhuhu, pero nagustuhan ko rin ang F1… at ikaw hehe.
+
+I did not expect na magka close tayo. Diko namalayan na gusto na pala kita. Diko alam kung sa mga magandang mata mo ba, or sa mabait mong traits kahit alam kong makalimutin ka (or hindi).
+
+Then I realized that I’m interested in you. I want to know you better—from your favorite comfort food to the stories you only tell when you feel safe. I know you can handle things on your own. I just want to be someone who makes it a little easier. Hindi to joke time.
+
+So… gusto kita, chedi. Gusto talaga kita masyadoooo.
+Gusto kita… more than friends!!
+
+If you feel the same, reply mo ako kung anong love language mo.
+If hindi… okay lang, “hi Ken” will do.
+Still a win kasi nag reply ka. HAHAHAHAHA`;
+
+let i = 0;
+const letter = document.getElementById("letter");
+const signature = document.getElementById("signature");
+const startBtn = document.getElementById("startBtn");
+const ytPlayer = document.getElementById("ytPlayer");
+
+function typeLetter() {
+    if(i < message.length){
+        letter.innerHTML += message.charAt(i);
+        i++;
+        setTimeout(typeLetter, 15); // faster typing
+    } else {
+        signature.style.opacity = 1;
+    }
+}
+
+// Hearts
+function createHeart(){
+    const heart = document.createElement("div");
+    heart.className = "floating-heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.bottom = "0px";
+    heart.style.fontSize = Math.random()*20 + 15 + "px";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(), 7000);
+}
+
+// Flowers
+function createFlower(){
+    const flower = document.createElement("div");
+    flower.className = "floating-flower";
+    const flowers = ["🌸","🌷","💐"];
+    flower.innerHTML = flowers[Math.floor(Math.random()*flowers.length)];
+    flower.style.left = Math.random() * window.innerWidth + "px";
+    flower.style.bottom = "0px";
+    flower.style.fontSize = Math.random()*25 + 15 + "px";
+    document.body.appendChild(flower);
+    setTimeout(()=>flower.remove(),7000);
+}
+
+// Puppies behind
+function createPuppy(){
+    const puppy = document.createElement("div");
+    puppy.className = "floating-puppy";
+    puppy.innerHTML = "🐶";
+    puppy.style.left = Math.random() * window.innerWidth + "px";
+    puppy.style.bottom = "0px";
+    puppy.style.fontSize = Math.random()*20 + 15 + "px";
+    puppy.style.zIndex = 1;
+    document.body.appendChild(puppy);
+    setTimeout(()=>puppy.remove(),8000);
+}
+
+// Kuromi above
+function createKuromi(){
+    const kuromi = document.createElement("div");
+    kuromi.className = "floating-kuromi";
+    kuromi.innerHTML = "🎀"; // or replace with "Kuromi" image later
+    kuromi.style.left = Math.random() * window.innerWidth + "px";
+    kuromi.style.bottom = "0px";
+    kuromi.style.fontSize = Math.random()*25 + 20 + "px";
+    kuromi.style.zIndex = 5;
+    document.body.appendChild(kuromi);
+    setTimeout(()=>kuromi.remove(),9000);
+}
+
+startBtn.addEventListener("click", ()=>{
+    startBtn.style.display = "none";
+    ytPlayer.src += "&autoplay=1";
+    typeLetter();
+    setInterval(createHeart, 350);
+    setInterval(createFlower, 700);
+    setInterval(createPuppy, 900);
+    setInterval(createKuromi, 1500);
+});
+</script>
+
+</body>
+</html>
